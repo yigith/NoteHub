@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace NoteHub.API.Controllers
 {
+    //[Authorize(Roles = Constants.Roles.ADMIN)]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
