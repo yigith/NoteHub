@@ -11,7 +11,8 @@ namespace NoteHub.API.Data
     {
         public NoteHubDbContext(DbContextOptions<NoteHubDbContext> options) : base(options)
         {
-
         }
+        
+        public DbSet<Note> Notes { get; set; }
     }
 }
