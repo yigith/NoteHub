@@ -54,6 +54,12 @@ namespace NoteHub.API
                 };
             });
 
+            // https://docs.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-5.0
+            services.AddCors(options =>
+                options.AddDefaultPolicy(
+                    builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()
+            ));
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -74,6 +80,7 @@ namespace NoteHub.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors();
             app.UseAuthentication();
             app.UseAuthorization();
 
