@@ -25,8 +25,7 @@ namespace NoteHub.API.Controllers
             _userManager = userManager;
         }
 
-        [Route("Login")]
-        [HttpPost]
+        [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginModel model)
         {
             if (ModelState.IsValid)
@@ -62,6 +61,23 @@ namespace NoteHub.API.Controllers
                     token = new JwtSecurityTokenHandler().WriteToken(token),
                     expiration= token.ValidTo
                 });
+            }
+
+            return BadRequest(ModelState);
+        }
+
+        [HttpPost("Register")]
+        public async Task<IActionResult> Register(RegisterModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new ApplicationUser()
+                {
+                    Email = model.Email,
+                    UserName = model.Email
+                };
+                await _userManager.CreateAsync(user, model.Password);
+                return Ok();
             }
 
             return BadRequest(ModelState);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace NoteHub.API.Controllers
 {
-    //[Authorize(Roles = Constants.Roles.ADMIN)]
+    [Authorize(Roles = Constants.Roles.ADMIN)]
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
