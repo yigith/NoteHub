@@ -70,19 +70,13 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
 ### links
-
 https://react-bootstrap.github.io/getting-started/introduction
-
 https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets
-
 https://reactrouter.com/web/guides/quick-start
 
 ### vscode extensions
-
 ES7 React/Redux/GraphQL/React-Native snippets
 
 ### snippets
-
 imp => import moduleName from 'module'
-
 rfce => React Function Component with Export
