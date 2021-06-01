@@ -75,6 +75,7 @@ https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snipp
 https://reactrouter.com/web/guides/quick-start
 https://www.npmjs.com/package/react-toastify
 https://reactjs.org/docs/hooks-effect.html
+https://github.com/axios/axios
 
 ### vscode extensions
 ES7 React/Redux/GraphQL/React-Native snippets

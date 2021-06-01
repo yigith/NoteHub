@@ -4,7 +4,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Redirect
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -31,7 +31,7 @@ function App() {
             <Logout />
           </Route>
           <Route path="/">
-            { isLoggedIn ? <Home /> : <Login /> }
+            { isLoggedIn ? <Home /> : <Redirect to="/login" /> }
           </Route>
         </Switch>
       </Router>

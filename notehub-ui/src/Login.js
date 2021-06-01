@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function Login() {
     var query = new URLSearchParams(useLocation().search);
@@ -21,14 +22,21 @@ function Login() {
 
     const handleSubmit = function(e) {
         e.preventDefault();
-        console.log("gönderilecek veriler");
-        console.log(email);
-        console.log(password);
-        console.log(rememberMe);
+        axios.post("https://localhost:5001/api/Account/Login", {
+            username: email,
+            password: password
+        })
+        .then(function(response) {
+            console.log(response);
+        })
+        .catch(function(error) {
+            const messages = [];
+            for (const key in error.response.data) {
+                messages.push(...data[key]);
+            }
+        });
 
-        // apiye istekte bulun
-        // hata gelirse hata mesajı göster
-        // token gelirse kaydet login et ve home a yönlendir
+        
     };
     
     return (
@@ -37,7 +45,7 @@ function Login() {
                 <ToastContainer />
                 <h1 className="text-center">Login</h1>
                 <Alert variant="danger">
-                    Invalid e-mail or password.
+                    ---
                 </Alert>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formBasicEmail">
