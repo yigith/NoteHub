@@ -74,6 +74,7 @@ https://react-bootstrap.github.io/getting-started/introduction
 https://marketplace.visualstudio.com/items?itemName=dsznajder.es7-react-js-snippets
 https://reactrouter.com/web/guides/quick-start
 https://www.npmjs.com/package/react-toastify
+https://reactjs.org/docs/hooks-effect.html
 
 ### vscode extensions
 ES7 React/Redux/GraphQL/React-Native snippets
