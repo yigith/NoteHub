@@ -14,6 +14,7 @@ import Login from './Login';
 import Logout from './Logout';
 
 function App() {
+  // todo: local/session storage da token varsa login et..
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [token, setToken] = useState(null);
 

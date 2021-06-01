@@ -1,14 +1,17 @@
 import './Login.css';
+import AppContext from './AppContext'
 import { Card, Form, Button, Alert } from 'react-bootstrap';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 
 function Login() {
-    var query = new URLSearchParams(useLocation().search);
-    var qlogout = query.get("logout");
+    const history = useHistory();
+    const ctx = useContext(AppContext);
+    const query = new URLSearchParams(useLocation().search);
+    const qlogout = query.get("logout");
     // parametre olarak verilen metot Login bileşeni sayfada render/update olunca çalışır
     useEffect(() => {
         if (qlogout == "success") {
@@ -19,21 +22,42 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [rememberMe, setRememberMe] = useState(true);
+    const [errors, setErrors] = useState([]);
 
     const handleSubmit = function(e) {
+        setErrors([]);
         e.preventDefault();
         axios.post("https://localhost:5001/api/Account/Login", {
             username: email,
             password: password
         })
         .then(function(response) {
-            console.log(response);
+            if (rememberMe) {
+                localStorage["username"] = email;
+                localStorage["token"] = response.data.token;
+                sessionStorage.removeItem("username");
+                sessionStorage.removeItem("token");
+            }
+            else {
+                sessionStorage["username"] = email;
+                sessionStorage["token"] = response.data.token;
+                localStorage.removeItem("username");
+                localStorage.removeItem("token");
+            }
+            ctx.setToken(response.data.token);
+            ctx.setIsLoggedIn(true);
+            history.push("/");
         })
         .catch(function(error) {
-            const messages = [];
-            for (const key in error.response.data) {
-                messages.push(...data[key]);
+            
+            if (error.response.data && error.response.data.errors) {
+                const messages = [];
+                for (const key in error.response.data.errors) {
+                    messages.push(...error.response.data.errors[key]);
+                }
+                setErrors(messages);
             }
+
         });
 
         
@@ -44,8 +68,8 @@ function Login() {
             <Card.Body className="p-sm-4">
                 <ToastContainer />
                 <h1 className="text-center">Login</h1>
-                <Alert variant="danger">
-                    ---
+                <Alert variant="danger" className={ errors.length == 0 ? "d-none" : "" }>
+                    { errors.join(' ') }
                 </Alert>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formBasicEmail">
