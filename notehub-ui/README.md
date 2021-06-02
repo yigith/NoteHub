@@ -76,6 +76,7 @@ https://reactrouter.com/web/guides/quick-start
 https://www.npmjs.com/package/react-toastify
 https://reactjs.org/docs/hooks-effect.html
 https://github.com/axios/axios
+https://stackoverflow.com/questions/49579028/adding-an-env-file-to-react-project
 
 ### vscode extensions
 ES7 React/Redux/GraphQL/React-Native snippets
