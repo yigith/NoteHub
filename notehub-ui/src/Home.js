@@ -11,7 +11,7 @@ function Home() {
     const token = ctx.token;
     const [notes, setNotes] = useState([]);
     const emptyNote = { id: 0, title: "", content: "", createdTime: "", modifiedTime: "" };
-    const [note, setNote] = useState({...emptyNote});
+    const [note, setNote] = useState({ ...emptyNote });
 
     const loadNotes = function () {
         axios.get(apiroot + "/api/Notes", { headers: { Authorization: "Bearer " + token } })
@@ -23,8 +23,8 @@ function Home() {
             });
     };
 
-    const addNewNote = function() {
-        axios.post(apiroot + "/api/Notes", { title: "New Note", content: ""}, { headers: { Authorization: "Bearer " + token } })
+    const addNewNote = function () {
+        axios.post(apiroot + "/api/Notes", { title: "New Note", content: "" }, { headers: { Authorization: "Bearer " + token } })
             .then(function (response) {
                 const note = response.data;
                 setNotes([...notes, note]); // prepends the newly created note to the note list.
@@ -34,9 +34,9 @@ function Home() {
             });
     };
 
-    const saveNote = function() {
-        axios.put(apiroot + "/api/Notes/" + note.id, 
-            { id: note.id, title: note.title, content: note.content}, 
+    const saveNote = function () {
+        axios.put(apiroot + "/api/Notes/" + note.id,
+            { id: note.id, title: note.title, content: note.content },
             { headers: { Authorization: "Bearer " + token } })
             .then(function (response) {
                 const newNotes = [...notes]; // copy of notes list
@@ -55,7 +55,7 @@ function Home() {
             .then(function (response) {
                 const newNotes = notes.filter((x) => x.id != note.id);
                 setNotes(newNotes);
-                setNote({...emptyNote});
+                setNote({ ...emptyNote });
             })
             .catch(function (error) {
                 console.log(error);
@@ -67,17 +67,17 @@ function Home() {
         setNote(note);
     };
 
-    const handleNewNoteClick = function(e) {
+    const handleNewNoteClick = function (e) {
         e.preventDefault();
         addNewNote();
     };
 
-    const handleSaveClick = function(e) {
+    const handleSaveClick = function (e) {
         e.preventDefault();
         saveNote();
     };
 
-    const handleDeleteClick = function(e) {
+    const handleDeleteClick = function (e) {
         e.preventDefault();
         deleteNote();
     };
@@ -121,20 +121,23 @@ function Home() {
                         </ListGroup>
                     </Col>
                     <Col className="h-100" sm={8} md={9}>
-                        <Form className="py-3 h-100 d-flex flex-column">
-                            <Form.Group>
-                                <Form.Control type="text" placeholder="Title" value={note.title} 
-                                    onChange={(e) => setNote({...note, title: e.target.value})} />
-                            </Form.Group>
-                            <Form.Group className="flex-fill">
-                                <Form.Control className="h-100" as="textarea" rows={10} placeholder="Content" value={note.content}
-                                    onChange={(e) => setNote({...note, content: e.target.value})} />
-                            </Form.Group>
-                            <div>
-                                <Button variant="primary" onClick={handleSaveClick}>Save</Button>
-                                <Button variant="danger" className="ml-2" onClick={handleDeleteClick}>Delete</Button>
-                            </div>
-                        </Form>
+                        {
+                            note.id == 0 ? <Form></Form> :
+                                <Form className="py-3 h-100 d-flex flex-column">
+                                    <Form.Group>
+                                        <Form.Control type="text" placeholder="Title" value={note.title}
+                                            onChange={(e) => setNote({ ...note, title: e.target.value })} />
+                                    </Form.Group>
+                                    <Form.Group className="flex-fill">
+                                        <Form.Control className="h-100" as="textarea" rows={10} placeholder="Content" value={note.content}
+                                            onChange={(e) => setNote({ ...note, content: e.target.value })} />
+                                    </Form.Group>
+                                    <div>
+                                        <Button variant="primary" onClick={handleSaveClick}>Save</Button>
+                                        <Button variant="danger" className="ml-2" onClick={handleDeleteClick}>Delete</Button>
+                                    </div>
+                                </Form>
+                        }
                     </Col>
                 </Row>
             </Container>

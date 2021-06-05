@@ -78,8 +78,18 @@ namespace NoteHub.API.Controllers
                     Email = model.Email,
                     UserName = model.Email
                 };
-                await _userManager.CreateAsync(user, model.Password);
-                return Ok();
+                var result = await _userManager.CreateAsync(user, model.Password);
+
+                if (result.Succeeded)
+                {
+                    return Ok();
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+
             }
 
             return ValidationProblem(ModelState);
