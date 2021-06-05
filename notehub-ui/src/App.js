@@ -7,6 +7,7 @@ import {
   Redirect
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import './App.css';
 import Home from './Home'
 import Register from './Register';
