@@ -66,7 +66,7 @@ function Register() {
                     </Form.Group>
 
                     <Button variant="primary" type="submit">
-                        Submit {email} {password} {confirmPassword}
+                        Submit
                     </Button>
                 </Form>
                 
