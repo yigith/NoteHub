@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,8 +21,10 @@ namespace NoteHub.API
 
             using (var scope = host.Services.CreateScope())
             {
+                var appDbContext = scope.ServiceProvider.GetRequiredService<NoteHubDbContext>();
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                await appDbContext.Database.MigrateAsync();
                 await SeedDB.InitializeAsync(roleManager, userManager);
             }
 
